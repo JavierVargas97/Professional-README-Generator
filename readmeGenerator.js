@@ -1,6 +1,6 @@
 // function to generate markdown for README
 
-function generateMarkdown(data) {
+function readmeGenerator(data) {
     return `
 # ${data.Title}
 https://github.com/${data.Username}/${data.Title}
@@ -29,4 +29,4 @@ If you have any questions about the repo, open an issue or contact ${data.Userna
 `
 }
 
-module.exports = generateMarkdown;
+module.exports = readmeGenerator;

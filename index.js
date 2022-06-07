@@ -1,13 +1,13 @@
-const inquirer = inquirer("inquirer");
+const inquirer = require ("inquirer");
 const fs = require ("fs");
-const util = require ("util")
-const generatorMarkdown = require("util")
+const util = require ("util");
+
+const readmeGenerator = require ('./readmeGenerator');
 
 // Array questions 
 
     const questions = [
-        {
-        type: "input",
+        {type: "input",
         message: "What is the title of the project?",
         name: "Title"
     }, {
@@ -54,17 +54,28 @@ const generatorMarkdown = require("util")
 
 ]
 
+// initialize program
+function writeToFile(fileName, data) {
 
-// function to initialize program
+    fs.writeFile(fileName, data, function(err) {
+        console.log(fileName)
+        console.log(data)
+        if (err) {
+            return console.log(err)
+        } else {
+            console.log("success")
+        }
+    })
+
+}
 function init() {
     inquirer.prompt(questions)
         .then(function(data) {
-            writeToFile("README.md", generatorMarkdown(data));
+            writeToFile("README.md", readmeGenerator(data));
             console.log(data)
 
         })
 
 }
-
-// function call to initialize program
+//initialize program
 init();
