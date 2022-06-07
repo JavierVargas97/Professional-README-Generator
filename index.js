@@ -1,104 +1,70 @@
-// TODO: Include packages needed for this application
-const inquirer = require ("inquirer");
+const inquirer = inquirer("inquirer");
 const fs = require ("fs");
-const generateMarkdown = require ("./readmeGenerator");
-const { inherits } = require("util");
+const util = require ("util")
+const generatorMarkdown = require("util")
+
+// Array questions 
+
+    const questions = [
+        {
+        type: "input",
+        message: "What is the title of the project?",
+        name: "Title"
+    }, {
+        type: "input",
+        message: "What is the project about? Give a detailed description of your project?",
+        name: "Description"
+    }, {
+        type: "input",
+        message: "Table of Contents.",
+        name: "Table of Contents"
+    }, {
+        type: "input",
+        message: "What does the user need to install to run this app (ie...dependencies)?",
+        name: "Installation"
+    }, {
+        type: "input",
+        message: "How is the app used? Give instructions",
+        name: "Usage"
+    }, {
+        type: "input",
+        message: "What liscence is being used? (ie...MIT)",
+        name: "License"
+    }, {
+        type: "input",
+        message: "Who contributed to this project?:",
+        name: "Contributing"
+    }, {
+        type: "input",
+        message: "What commands are needed to test this app?",
+        name: "Tests"
+    }, {
+        type: "input",
+        message: "Contact info for inquiries.",
+        name: "Questions"
+    }, {
+        type: 'input',
+        message: 'What is your Github username?',
+        name: 'Username'
+    }, {
+        type: 'input',
+        message: 'What is your email address?',
+        name: 'Email'
+    },
+
+]
 
 
-// TODO: Create an array of questions for user input
-const questions = [];
+// function to initialize program
+function init() {
+    inquirer.prompt(questions)
+        .then(function(data) {
+            writeToFile("README.md", generatorMarkdown(data));
+            console.log(data)
 
+        })
 
-
-//Input functions for call the questions
-function userInput(){
-    return inquirer.prompt([
-    {name: "license",
-    message: "Select the type of license for this application:",
-    choices: ["Boost Software License 1.0", "BSD 2-clause license", "BSD 3-clause license", "Creative Commons Zero v1.0 Universal", "Creative Commons Attribution 4.0", "Creative Commons Attribution Share Alike 4.0", "Do What The Fuck You Want To Public License", "Educational Community License v2.0", "Eclipse Public License 1.0", "Eclipse Public License 2.0", "European Union Public License 1.1", "GNU Affero General Public License v3.0", "GNU General Public License v2.0", "GNU General Public License v3.0",  "GNU Lesser General Public License v2.1", "GNU Lesser General Public License v3.0", "ISC", "LaTeX Project Public License v1.3c", "Microsoft Public License",  "MIT", "Mozilla Public License 2.0", "Open Software License 3.0", "SIL Open Font License 1.1", "University of Illinois/NCSA Open Source License", "The Unlicense", "zLib License", 'Academic Free License v3.0", "Apache License 2.0", "Artistic License 2.0']},
-    
-    {name: "title",
-    message: "What is the name of your application?",
-    type: "input" },
-   
-    {name: "description",
-    message:"What does your application do?",
-    type: "input"},
-   
-    {name: "install",
-    message: "How is your application installed?",
-    type: "input"},
-    
-    {name: "usage",
-    message: "How is your application used?",
-    type: "input"},
-    
-    
-    {name: "username",
-    message: "What is your GitHub username?",
-    type: "input"},
- 
-    {name: "testing",
-    message: "How can your application be tested?",
-    type: "input"}, 
-
-
-    {name: "email",
-    message: "What is your e-mail?",
-    type: "input"},
-   
-    {name: "fileName",
-    message: "What do you want to call your readme file?",
-    type: "input"},
-    ])};
-
-//Create a function to write README file                  (doesn't WORKS!!!)
-// const generateMarkdown = (answers) => {
-//     // https://www.markdownguide.org/basic-syntax/
-//     let markdown = "# This is a Random Generated README file by @javier";
-  
-//     if (answers.title) {
-//       markdown += `# ${answers.title}`;
-//     }
-  
-//     if (answers.description) {
-//       markdown += "*This is how it works*";
-//       markdown += `*${answers.description}*`;
-//     }
-  
-//     if (answers.install) {
-//       markdown += "*Getting Started:*";
-//       markdown += `*${answers.install}*`;
-//     }
-  
-//     return markdown;
-//   }
-  
-//   // Init the app
-//   (async () => {
-//     try {
-//       const answers = await initiQuestions();
-  
-//       const markdown = generateMarkdown(answers);
-//       await createReadme(markdown);
-  
-//       console.info("README created");
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   })();
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.appendFile(`${fileName}.md`, data,
-    (err) => err ? console.error(err) : console.log(`${fileName}.md has been generated.`))
 }
 
-// TODO: Create a function to initialize app
-async function init() {
-    let answers = await userInput();
-    writeToFile((answers.fileName), (generateMarkdown(answers)));
-}
-
-// Function call to initialize app
+// function call to initialize program
 init();
