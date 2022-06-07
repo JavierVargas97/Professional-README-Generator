@@ -3,7 +3,12 @@
 ## Info app
 Application that dynamically generates a professional README.md file from a user's input using the Inquirer package 📃
 
+
+### Youtube Video Tutorial
+[![Alt text](https://img.youtube.com/vi/eSXJdOWbvAE/0.jpg)](https://www.youtube.com/watch?v=eSXJdOWbvAE)
+
 ### Libraries 
+
 
 Nodes.js and Inquirer.
 
